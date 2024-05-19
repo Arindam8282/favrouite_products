@@ -9,13 +9,16 @@ const Loader = () => <div>Loading...</div>;
 const EmptyFavs = () => <div>Empty Favourites</div>;
 
 const Products = () => {
-  const { products,handleToggleFavourite,favourites } = useContext(ProductsContext);
-  const [search,setSearch] = useState('')
+  const { products, handleToggleFavourite, favourites } = useContext(ProductsContext);
+  const [search, setSearch] = useState('');
 
-  const favouriteProducts = useMemo(()=>{
-    if(search.trim()==='') return products.filter((product)=> favourites.has(product.id));
-    else return products.filter((product)=> favourites.has(product.id)&&product.name.includes(search)) 
-  },[favourites,search])
+  const favouriteProducts = useMemo(() => {
+    const favProducts = products.filter((product) => favourites.has(product.id));
+    if (search.trim().length) {
+      return favProducts.filter((product) => product.name.toLowerCase().includes(search.toLowerCase()));
+    }
+    return favProducts;
+  }, [favourites, search])
 
   const handleSubmit = useCallback((e) => {
     e.preventDefault();
@@ -24,9 +27,9 @@ const Products = () => {
 
   return (
     <div>
-          <SearchField onSearch={handleSubmit} />
+      <SearchField onSearch={handleSubmit} />
       {
-        favouriteProducts.map((product) => ( 
+        favouriteProducts.map((product) => (
           <ProductCard
             key={product.id}
             name={product.name}
@@ -34,32 +37,40 @@ const Products = () => {
             description={product.description}
             price={product.price}
             isFavourite={favourites.has(product.id)}
-            onFavourite={handleToggleFavourite.bind(this,product.id)}
-          />          
+            onFavourite={handleToggleFavourite.bind(this, product.id)}
+          />
         ))
       }
     </div>
   );
 };
+
 const Favourites = () => {
-  const { productLoader,favourites } = useContext(ProductsContext);
+  const { productLoader, favourites } = useContext(ProductsContext);
+
+  const ProductsMap = {
+    'true-false': <Loader />,
+    'true-true': <Loader />,
+    'false-false': <EmptyFavs />,
+    'false-true': <Products />
+  };
 
   return (
-      <div>
-        <div className="flex space-between">
-          <div>
-            Favourites
-          </div>
-          <div>
-            <Link to="/" >products</Link>
-          </div>
+    <div>
+      <div className="flex space-between">
+        <div>
+          Favourites
         </div>
-        {
-        productLoader
-          ? <Loader />
-          :  favourites.size>0 ? <Products />:<EmptyFavs />
-      }
+        <div>
+          <Link to="/" >products</Link>
+          <Link to="/cart" >Cart</Link>
+        </div>
       </div>
+      {
+        ProductsMap[`${productLoader}-${favourites.size > 0}`]
+      }
+
+    </div>
   );
 }
 

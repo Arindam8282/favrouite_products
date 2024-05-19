@@ -44,11 +44,12 @@ const Products = () => {
 const ProductList = () => {
 
   // const navigate = useNavigate()
-  const { productLoader } = useContext(ProductsContext);
-  // const ProductsMap = new Map(
-  //   ['true-false',<Loader/>],
-  //   ['false-true',<Products/>]
-  // )
+  const { productLoader,products } = useContext(ProductsContext);
+  const ProductsMap = {
+    'true-false':<Loader/>,
+    'false-true':<Products/>
+  }
+    
   // const navigateToFavs = ()=>{
   //   navigate('/favs')
   // }
@@ -61,14 +62,10 @@ const ProductList = () => {
         </div>
         <div>
           <Link to="/favs" >favourites</Link>
+          <Link to="/cart" >Cart</Link>
         </div>
       </div>
-      {/* {ProductsMap.get(`${productLoader}-${products.length>0}`)} */}
-      {
-        productLoader
-          ? <Loader />
-          : <Products /> 
-      }
+      {ProductsMap[`${productLoader}-${products.length>0}`]}
      
     </div>
   );

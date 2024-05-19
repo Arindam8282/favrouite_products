@@ -1,33 +1,53 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import productJson from '../../Constant/products.json'
 
-const useProducts = () => {
-  const [products, setProducts] = useState({ loader: false, data: [], collection: new Map() });
+const prepareProducts = ({
+  products = [],
+  incrementPrice = 0,
+}) => {
+  const productCollection = new Map([]);
+  const __products = JSON.parse(JSON.stringify(products));
+
+  for (let i = 0; i < __products.length; i++) {
+    const _product = __products[i];
+    _product.price += incrementPrice;
+    productCollection.set(_product.id, _product);
+  }
+
+  return { __products, productCollection };
+};
+
+const useProducts = ({ incrementPrice = 0 }) => {
+  const [products, setProducts] = useState({ loader: false, data: [] });
 
   const fetchProducts = async () => {
     return new Promise(async (next = () => {}) => {
-      let _products = { ...products, data: [], loader: true };
+      let _products = { ...products, loader: true };
       setProducts(_products);
+
       // api call
-
-      const productCollection = new Map([]);
-
-      // prepare map
       _products = {
         ..._products,
         loader: false,
         data: productJson,
-        collection: productCollection,
       };
-      for(let i=0;i<_products.data.length;i++){
-        productCollection.set(_products.data[i].id,_products.data[i])
-      }
+
       setProducts(_products);
       return next(_products.data);
     });
   }
 
-  return { ...products, fetchProducts };
+  const { loader, data, collection } = useMemo(() => {
+    const _products = { ...products };
+    const { __products, productCollection } = prepareProducts({ products: products.data, incrementPrice });
+    return {
+      ..._products,
+      data: __products,
+      collection: productCollection,
+    };
+  }, [products, incrementPrice]);
+
+  return { loader, data, collection, fetchProducts };
 };
 
 export default useProducts;

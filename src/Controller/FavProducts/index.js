@@ -1,27 +1,29 @@
 import { useState, useEffect } from "react";
 import { Provider } from "../../Context/favourite";
 import useProducts from "../../Hooks/Products";
+import useVariablePrice from "../../Hooks/Products/variablePrice";
 
-const FavouritesProducts = ({children}) => {
-  const [favourites,setFavourites] = useState(new Set())
-  const { loader: productLoader, fetchProducts, data: products, collection: productCollection } = useProducts();
+const FavouritesProducts = ({ children }) => {
+  const { incrementPrice } = useVariablePrice({ delay: 10000, incrementBy: 200 });
+  const { loader: productLoader, fetchProducts, data: products, collection: productCollection } = useProducts({ incrementPrice });
+  const [ favourites, setFavourites ] = useState(new Set());
 
   useEffect(() => {
     fetchProducts();
   }, []);
 
-  const handleToggleFavourite=(id)=>{
+  const handleToggleFavourite = (id) => {
     const _favourites = new Set(favourites)
-    if(_favourites.has(id)){
+    if (_favourites.has(id)) {
       _favourites.delete(id);
     }
-    else{
+    else {
       _favourites.add(id)
     }
     setFavourites(_favourites)
   };
 
-  return ( 
+  return (
     <Provider value={{
       productLoader,
       products,
@@ -32,8 +34,8 @@ const FavouritesProducts = ({children}) => {
       handleToggleFavourite
     }}>
       {children}
-    </Provider> 
+    </Provider>
   );
 }
- 
+
 export default FavouritesProducts;
