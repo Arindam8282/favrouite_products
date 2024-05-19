@@ -1,0 +1,33 @@
+[
+  {
+    "id":1,
+    "name":"OnePlus Nord CE 3 Lite 5G (Pastel Lime, 256 GB)",
+    "image":"https://rukminim2.flixcart.com/image/312/312/xif0q/mobile/k/w/k/-original-imagg2abzhxjckxu.jpeg?q=70",
+    "description":"8 GB RAM | 256 GB ROM 17.07 cm (6.72 inch) Display 108MP Rear Camera  5000 mAh Battery",
+    "price":18785
+  },{
+    "id":2,
+    "name":"OnePlus Nord CE 3 Lite 5G (Chromatic Gray, 128 GB)",
+    "image":"https://rukminim2.flixcart.com/image/312/312/xif0q/mobile/p/r/b/nord-ce-3-lite-5g-ce2099-oneplus-original-imagzj42cctpjjze.jpeg?q=70",
+    "description":"8 GB RAM | 256 GB ROM 17.07 cm (6.72 inch) Display 108MP Rear Camera  5000 mAh Battery",
+    "price":17701
+  },{
+    "id":3,
+    "name":"OnePlus Nord 3 5G (Misty Green, 128 GB)",
+    "image":"https://rukminim2.flixcart.com/image/312/312/xif0q/mobile/m/c/e/nord-3-5g-cph2491-oneplus-original-imagrk2z92qpqgfd.jpeg?q=70",
+    "description":"8 GB RAM | 256 GB ROM 17.07 cm (6.72 inch) Display 108MP Rear Camera  5000 mAh Battery",
+    "price":16933
+  },{
+    "id":4,
+    "name":"OnePlus 12R (Iron Gray, 256 GB)",
+    "image":"https://rukminim2.flixcart.com/image/312/312/xif0q/mobile/h/g/5/-original-imagy5wfgskkgz4t.jpeg?q=70",
+    "description":"8 GB RAM | 256 GB ROM 17.07 cm (6.72 inch) Display 108MP Rear Camera  5000 mAh Battery",
+    "price":13343
+  },{
+    "id":5,
+    "name":"OnePlus 12R (Cool Blue, 128 GB)",
+    "image":"https://rukminim2.flixcart.com/image/312/312/xif0q/mobile/z/y/i/-original-imagy5wg4pqpymyh.jpeg?q=70",
+    "description":"8 GB RAM | 256 GB ROM 17.07 cm (6.72 inch) Display 108MP Rear Camera  5000 mAh Battery",
+    "price":12999
+  }
+]
