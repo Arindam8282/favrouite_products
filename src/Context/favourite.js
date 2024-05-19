@@ -10,7 +10,12 @@ export const Context = createContext({
   // favourites
   favourites: new Set(),
   setFavourites: ()=>{},
-  handleToggleFavourite: (id)=>{}
+  handleToggleFavourite: (id)=>{},
+
+  //cart
+  cart: [],
+  addToCart: () => {},
+  removeFromCart: () => {}
 });
 
 export const Provider = Context.Provider;

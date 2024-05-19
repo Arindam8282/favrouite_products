@@ -7,7 +7,7 @@ import SearchField from "../../Components/SearchField/SearchField";
 const Loader = () => <div>Loading...</div>;
 
 const Products = () => {
-  const { products,handleToggleFavourite,favourites } = useContext(ProductsContext);
+  const { products,handleToggleFavourite,favourites,addToCart } = useContext(ProductsContext);
   const [search,setSearch] = useState('')
 
   const searchedProducts = useMemo(()=>{
@@ -34,6 +34,7 @@ const Products = () => {
             price={product.price}
             isFavourite={favourites.has(product.id)}
             onFavourite={handleToggleFavourite.bind(this,product.id)}
+            onAddToCart={addToCart.bind(this,product)}
           />
         ))
       }

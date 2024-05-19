@@ -1,20 +1,41 @@
-import { useCallback, useContext, useMemo, useState } from "react";
+import { useContext } from "react";
 import { Link } from "react-router-dom";
 import { Context as ProductsContext } from "../../Context/favourite";
 import ProductCard from "../../Components/ProductCard/ProductCard";
-import SearchField from "../../Components/SearchField/SearchField";
 
 const Loader = () => <div>Loading...</div>;
-// const EmptyCart = () => <div>Empty Cart</div>;
+const EmptyCart = () => <div>Empty Cart</div>;
+
+const CartList = () => {
+  const { cart, removeFromCart } = useContext(ProductsContext);
+
+  return (
+    <div>
+      {
+        cart.map((product,index) => (
+          <ProductCard
+            key={index}
+            isCart={true}
+            name={product.name}
+            image={product.image}
+            description={product.description}
+            price={product.price}
+            onRemoveFromCart={removeFromCart.bind(this,index)}
+          />
+        ))
+      }
+    </div>
+  );
+};
 
 const Cart = () => {
-  const { productLoader, favourites } = useContext(ProductsContext);
+  const { productLoader, cart } = useContext(ProductsContext);
 
   const ProductsMap = {
     'true-false': <Loader />,
     'true-true': <Loader />,
-    // 'false-false': <EmptyFavs />,
-    // 'false-true': <Products />
+    'false-false': <EmptyCart />,
+    'false-true': <CartList />
   };
 
   return (
@@ -29,7 +50,7 @@ const Cart = () => {
         </div>
       </div>
       {
-        ProductsMap[`${productLoader}-${favourites.size > 0}`]
+        ProductsMap[`${productLoader}-${cart.length > 0}`]
       }
 
     </div>
